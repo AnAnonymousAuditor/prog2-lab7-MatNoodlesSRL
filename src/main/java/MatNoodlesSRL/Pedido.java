@@ -7,7 +7,7 @@ public class Pedido {
     
     private Cliente datoscliente;
     private String medioDeVenta; 
-    private 
+    private List<Producto> productos; 
 
     public Pedido(Cliente datoscliente, String medioDeVenta) {
         this.datoscliente = datoscliente;
@@ -38,6 +38,10 @@ public class Pedido {
 
     public List<Producto> getProductos() {
         return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     // TOSTRING

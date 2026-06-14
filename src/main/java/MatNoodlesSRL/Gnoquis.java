@@ -8,6 +8,6 @@ package MatNoodlesSRL;
  *
  * @author gabi
  */
-public class ñoquis {
+public class Gnoquis {
     
 }
