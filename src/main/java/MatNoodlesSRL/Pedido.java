@@ -4,60 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
-    
-    private Cliente datoscliente;
-    private String medioDeVenta; 
-    private List<Producto> productos; 
 
-    public Pedido(Cliente datoscliente, String medioDeVenta) {
-        this.datoscliente = datoscliente;
-        this.medioDeVenta = medioDeVenta;
-        this.productos = new ArrayList<>(); 
+    private MedioVenta medioVenta;
+    private List<DetallePedido> detalles;
+
+    public Pedido() {
     }
 
-    public void agregarProducto(Producto producto) {
-        this.productos.add(producto);
+    public Pedido(MedioVenta medioVenta) {
+        this.medioVenta = medioVenta;
+        this.detalles = new ArrayList<>();
     }
 
-    //GETTERS Y SETTERS
-    public Cliente getDatoscliente() {
-        return datoscliente;
+    public void agregarDetalle(DetallePedido detalle) {
+        this.detalles.add(detalle);
     }
 
-    public void setDatoscliente(Cliente datoscliente) {
-        this.datoscliente = datoscliente;
+    public MedioVenta getMedioVenta() {
+        return medioVenta;
     }
 
-    public String getMedioDeVenta() {
-        return medioDeVenta;
+    public void setMedioVenta(MedioVenta medioVenta) {
+        this.medioVenta = medioVenta;
     }
 
-    public void setMedioDeVenta(String medioDeVenta) {
-        this.medioDeVenta = medioDeVenta;
+    public List<DetallePedido> getDetalles() {
+        return detalles;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
     }
-
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
-    }
-
-    // TOSTRING
 
     @Override
     public String toString() {
-        return "Pedido{" + 
-                "datoscliente=" + datoscliente +
-                ", medioDeVenta=" + medioDeVenta +
-                ", productos=" + productos + 
+        return "Pedido{" +
+                "medioVenta=" + medioVenta +
+                ", detalles=" + detalles +
                 '}';
     }
-   
+
 }
-    
-
-
- 
-
