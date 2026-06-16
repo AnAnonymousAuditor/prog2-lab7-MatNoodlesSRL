@@ -10,6 +10,10 @@ public class ProductoPorCaja extends Producto {
     public ProductoPorCaja() {
     }
 
+    public ProductoPorCaja(TipoPasta tipo, double precio) {
+        super(tipo, precio);
+    }
+
     public ProductoPorCaja(int cajas, TipoPasta tipo, double precio) {
         super(tipo, precio);
         this.cajas = cajas;
