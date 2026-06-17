@@ -47,6 +47,13 @@ public class DetallePedido {
     }
 
     public double calcularSubtotal(Producto producto) {
-        return producto.getCantidad() * producto.getPrecio();
+        double x = 0.0;
+        try {
+            x = producto.getCantidad() * producto.getPrecio();
+        } catch (ArithmeticException ae) {
+            throw new ArithmeticException("Problema al calcular un subtotal: " + ae.getMessage());
+        }
+        setSubtotal(x);
+        return x;
     }
 }

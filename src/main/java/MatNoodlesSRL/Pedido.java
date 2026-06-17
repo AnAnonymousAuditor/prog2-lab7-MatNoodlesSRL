@@ -29,6 +29,18 @@ public class Pedido {
         this.detalles = new ArrayList<>();
     }
 
+    public double calcularTotal() {
+        double x = 0.0;
+        for (DetallePedido dp : detalles) {
+            try {
+                x += dp.calcularSubtotal();
+            } catch (ArithmeticException ae) {
+                throw new ArithmeticException("Problema al calcular el total: " + ae.getMessage());
+            }
+        }
+        return x;
+    }
+
     public void cargarDetalle() {
         Scanner sc = new Scanner(System.in);
         DetallePedido detalle = null;
@@ -43,6 +55,7 @@ public class Pedido {
                              4) Ravioles
                              """);
             tipo = sc.nextInt();
+            sc.nextLine();
 
             producto = switch (tipo) {
                 case 1 -> new Agnolotis();
@@ -95,5 +108,4 @@ public class Pedido {
                 ", detalles=" + detalles +
                 '}';
     }
-
 }

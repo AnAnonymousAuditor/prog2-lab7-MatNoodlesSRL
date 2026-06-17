@@ -6,25 +6,24 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Scanner str = new Scanner(System.in);
-        Scanner num = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
+        Cliente cliente = null;
         String nombre;
         String apellido;
         String email;
         String telefono;
         String direccion;
 
-        Cliente cliente = null;
-        Pedido pedido = null;
+        Pedido pedido = new Pedido();
 
         int medio;
-        boolean medioElegido = false;
         boolean terminado = false;
+        boolean medioElegido = false;
         boolean clienteIngresado = false;
         boolean detallesCargados = false;
 
-        System.out.println("== Mat-Noodles SRL. ==\n");
+        System.out.println("== Mat-Noodles SRL ==\n");
 
         while (!terminado) {
             try {
@@ -32,7 +31,7 @@ public class Main {
                     System.out.println("Ingrese los datos del cliente:");
 
                     System.out.print("Nombre: ");
-                    nombre = str.nextLine().trim();
+                    nombre = sc.nextLine().trim();
                     if (nombre.isBlank()) {
                         throw new IllegalArgumentException("El nombre no puede estar vacío");
                     } else if (nombre.matches(".*\\d.*")){
@@ -40,7 +39,7 @@ public class Main {
                     }
 
                     System.out.print("Apellido: ");
-                    apellido = str.nextLine().trim();
+                    apellido = sc.nextLine().trim();
                     if (apellido.isBlank()) {
                         throw new IllegalArgumentException("El apellido no puede estar vacío");
                     } else if (apellido.matches(".*\\d.*")) {
@@ -48,16 +47,16 @@ public class Main {
                     }
 
                     System.out.print("E-mail: ");
-                    email = str.nextLine();
+                    email = sc.nextLine();
                     System.out.print("Teléfono: ");
-                    telefono = str.nextLine();
+                    telefono = sc.nextLine();
                     System.out.print("Dirección: ");
-                    direccion = str.nextLine();
+                    direccion = sc.nextLine();
 
                     cliente = new Cliente(nombre, apellido, email, telefono, direccion);
                     clienteIngresado = true;
                 }
-                pedido = new Pedido(cliente);
+                pedido.setCliente(cliente);
                 while (!medioElegido) {
                     System.out.print("""
                                      Elija el medio de venta:
@@ -66,10 +65,10 @@ public class Main {
                                      3) Red social
                                      """);
                     try {
-                        medio = num.nextInt();
+                        medio = sc.nextInt();
+                        sc.nextLine();
                     }
                     catch (InputMismatchException ime) {
-                        num.nextLine();
                         throw new InputMismatchException("El texto ingresado no es un número.");
                     }
                     switch (medio) {
@@ -83,17 +82,56 @@ public class Main {
                 while (!detallesCargados) {
                     pedido.cargarDetalle();
                     System.out.println("Desea cargar otro producto? (s/n)");
-                    detallesCargados = str.nextLine().charAt(0) == 'n';
+                    detallesCargados = sc.nextLine().charAt(0) == 'n';
                 }
 
+                StringBuilder ticket = new StringBuilder("""
+                    ================ PEDIDO ================
+                    Vendido por %s
+                    """.formatted(pedido.getMedioVenta().name().replace("_", " ")));
+                ticket.append("""
+                    Datos del cliente:
+                    %s
+                    """.formatted(pedido.getCliente()));
+                ticket.append("""
+
+                        Producto                        Subtotal
+                        """);
+                for (DetallePedido dp : pedido.getDetalles()) {
+                    Producto p = dp.getProducto();
+                    ticket.append("""
+                            %-13s         %18.2f
+                                %.3f x %.2f
+                            """.formatted(p.getClass().getSimpleName(), dp.calcularSubtotal(), p.getCantidad(), p.getPrecio()));
+
+                }
+                ticket.append("""
+                        ----------------------------------------
+                        """);
+                ticket.append("""
+                        TOTAL           %24.2f
+                        """.formatted(pedido.calcularTotal()));
+
+                System.out.println(ticket);
+
                 System.out.println("Seguir? (s/n)");
-                terminado = str.nextLine().charAt(0) == 'n';
+                if (sc.nextLine().charAt(0) == 'n') {
+                    terminado = true;
+                } else {
+                    pedido = new Pedido();
+                    terminado = false;
+                    medioElegido = false;
+                    clienteIngresado = false;
+                    detallesCargados = false;
+                }
             } catch (IllegalArgumentException iae) {
                 EntradaSalida.imprimir("Valor inválido: " + iae.getMessage());
             } catch (InputMismatchException ime) {
                 EntradaSalida.imprimir("Error de entrada: " + ime.getMessage());
             } catch (PedidoInvalidoException pie) {
                 EntradaSalida.imprimir("Pedido inválido: " + pie.getMessage());
+            } catch (ArithmeticException ae) {
+                EntradaSalida.imprimir("Error aritmético: " + ae.getMessage());
             } catch (Exception e) {
                 EntradaSalida.imprimir("ERROR: " + e.getMessage());
             }

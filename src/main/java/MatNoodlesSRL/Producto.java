@@ -5,25 +5,20 @@ package MatNoodlesSRL;
  * @author gabi
  */
 public abstract class Producto {
-    private final double precio;
-
+    protected double cantidad;
+    
     public Producto() {
-        this(0.0);
     }
 
-    public Producto(double precio) {
-        this.precio = precio;
-    }
+    public double getCantidad(){
+        return cantidad;
+    };
 
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+    
     public abstract void ingresarCantidad();
 
-    public abstract double getCantidad();
-
     public abstract double getPrecio();
-
-    @Override
-    public String toString() {
-        return "Producto{" + "precio=" + precio + '}';
-    }
-
 }
