@@ -4,37 +4,26 @@ package MatNoodlesSRL;
  *
  * @author gabi
  */
-public class Producto {
-    private TipoPasta tipo;
-    private double precio;
+public abstract class Producto {
+    private final double precio;
 
     public Producto() {
+        this(0.0);
     }
 
-    public Producto(TipoPasta tipo, double precio) {
-        this.tipo = tipo;
+    public Producto(double precio) {
         this.precio = precio;
     }
 
-    public TipoPasta getTipo() {
-        return tipo;
-    }
+    public abstract void ingresarCantidad();
 
-    public void setTipo(TipoPasta tipo) {
-        this.tipo = tipo;
-    }
+    public abstract double getCantidad();
 
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
+    public abstract double getPrecio();
 
     @Override
     public String toString() {
-        return "Producto{" + "tipo=" + tipo + ", precio=" + precio + '}';
+        return "Producto{" + "precio=" + precio + '}';
     }
-    
+
 }

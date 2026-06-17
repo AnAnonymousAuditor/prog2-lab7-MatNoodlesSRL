@@ -1,11 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package MatNoodlesSRL;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -17,9 +10,9 @@ public class Cliente {
     private String email;
     private String telefono;
     private String direccion;
-    private List<Pedido> pedidos;
 
     public Cliente() {
+        this(null, null, null, null, null);
     }
 
     public Cliente(String nombre, String apellido, String email, String telefono, String direccion) {
@@ -28,7 +21,6 @@ public class Cliente {
         this.email = email;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.pedidos = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -71,23 +63,14 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
     @Override
     public String toString() {
-        return "Cliente{" + 
-                "nombre=" + nombre + 
-                ", apellido=" + apellido + 
-                ", email=" + email + 
-                ", telefono=" + telefono + 
-                ", direccion=" + direccion + 
-                ", pedidos=" + pedidos + 
+        return "Cliente{" +
+                "nombre=" + nombre +
+                ", apellido=" + apellido +
+                ", email=" + email +
+                ", telefono=" + telefono +
+                ", direccion=" + direccion +
                 '}';
     }
 

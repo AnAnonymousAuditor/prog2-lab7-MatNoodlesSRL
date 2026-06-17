@@ -5,25 +5,20 @@ package MatNoodlesSRL;
  * @author manuel
  */
 public class DetallePedido {
-    private int cantidad;
     private double subtotal;
     private Producto producto;
 
     public DetallePedido() {
+        this(0.0, null);
     }
 
-    public DetallePedido(int cantidad, double subtotal, Producto producto) {
-        this.cantidad = cantidad;
+    public DetallePedido(Producto producto) {
+        this(0.0, producto);
+    }
+
+    public DetallePedido(double subtotal, Producto producto) {
         this.subtotal = subtotal;
         this.producto = producto;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
     }
 
     public double getSubtotal() {
@@ -44,10 +39,14 @@ public class DetallePedido {
 
     @Override
     public String toString() {
-        return "DetallePedido{" + "cantidad=" + cantidad + ", subtotal=" + subtotal + ", producto=" + producto + '}';
+        return "DetallePedido{" + ", subtotal=" + subtotal + ", producto=" + producto + '}';
+    }
+
+    public double calcularSubtotal() {
+        return calcularSubtotal(producto);
     }
 
     public double calcularSubtotal(Producto producto) {
-        return 0.0;
+        return producto.getCantidad() * producto.getPrecio();
     }
 }
