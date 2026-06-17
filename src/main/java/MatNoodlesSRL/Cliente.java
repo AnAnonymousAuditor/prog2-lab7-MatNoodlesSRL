@@ -65,13 +65,10 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "nombre=" + nombre +
-                ", apellido=" + apellido +
-                ", email=" + email +
-                ", telefono=" + telefono +
-                ", direccion=" + direccion +
-                '}';
+        return """
+            %s %s
+            E-mail: %s
+            Teléfono: %s
+            Dirección: %s""".formatted(nombre, apellido, email, telefono, direccion);
     }
-
 }

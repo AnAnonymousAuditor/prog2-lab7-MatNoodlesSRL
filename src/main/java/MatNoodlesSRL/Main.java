@@ -125,15 +125,15 @@ public class Main {
                     detallesCargados = false;
                 }
             } catch (IllegalArgumentException iae) {
-                EntradaSalida.imprimir("Valor inválido: " + iae.getMessage());
+                System.out.println("Valor inválido: " + iae.getMessage());
             } catch (InputMismatchException ime) {
-                EntradaSalida.imprimir("Error de entrada: " + ime.getMessage());
+                System.out.println("Error de entrada: " + ime.getMessage());
             } catch (PedidoInvalidoException pie) {
-                EntradaSalida.imprimir("Pedido inválido: " + pie.getMessage());
+                System.out.println("Pedido inválido: " + pie.getMessage());
             } catch (ArithmeticException ae) {
-                EntradaSalida.imprimir("Error aritmético: " + ae.getMessage());
+                System.out.println("Error aritmético: " + ae.getMessage());
             } catch (Exception e) {
-                EntradaSalida.imprimir("ERROR: " + e.getMessage());
+                System.out.println("ERROR: " + e.getMessage());
             }
         }
     }

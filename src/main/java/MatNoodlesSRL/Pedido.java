@@ -43,7 +43,7 @@ public class Pedido {
 
     public void cargarDetalle() {
         Scanner sc = new Scanner(System.in);
-        DetallePedido detalle = null;
+        DetallePedido detalle;
         Producto producto = null;
         int tipo;
         try {
