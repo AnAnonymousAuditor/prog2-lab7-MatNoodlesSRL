@@ -23,7 +23,9 @@ public class Main {
         boolean clienteIngresado = false;
         boolean detallesCargados = false;
 
+        System.out.println("=====================\n");
         System.out.println("== Mat-Noodles SRL ==\n");
+        System.out.println("=====================\n");
 
         while (!terminado) {
             try {
@@ -73,7 +75,7 @@ public class Main {
                     }
                     switch (medio) {
                         case 1 -> pedido.setMedioVenta(MedioVenta.TELEFONO);
-                        case 2 -> pedido.setMedioVenta(MedioVenta.WEB);
+                        case 2 -> pedido.setMedioVenta(MedioVenta.SITIO_WEB);
                         case 3 -> pedido.setMedioVenta(MedioVenta.RED_SOCIAL);
                         default -> throw new IllegalArgumentException("El número ingresado debe ser 1, 2, o 3. Se ingresó: " + medio);
                     }
@@ -86,7 +88,7 @@ public class Main {
                 }
 
                 StringBuilder ticket = new StringBuilder("""
-                    ================ PEDIDO ================
+                    ================= PEDIDO =================
                     Vendido por %s
                     """.formatted(pedido.getMedioVenta().name().replace("_", " ")));
                 ticket.append("""
@@ -95,21 +97,21 @@ public class Main {
                     """.formatted(pedido.getCliente()));
                 ticket.append("""
 
-                        Producto                        Subtotal
+                        Producto                          Subtotal
                         """);
                 for (DetallePedido dp : pedido.getDetalles()) {
                     Producto p = dp.getProducto();
                     ticket.append("""
-                            %-13s         %18.2f
-                                %.3f x %.2f
-                            """.formatted(p.getClass().getSimpleName(), dp.calcularSubtotal(), p.getCantidad(), p.getPrecio()));
+                            %-25s       %,8.2f $
+                                %.3f x %,.2f $
+                            """.formatted(p, dp.calcularSubtotal(), p.getCantidad(), p.getPrecio()));
 
                 }
                 ticket.append("""
-                        ----------------------------------------
+                        ------------------------------------------
                         """);
                 ticket.append("""
-                        TOTAL           %24.2f
+                        TOTAL           %,24.2f $
                         """.formatted(pedido.calcularTotal()));
 
                 System.out.println(ticket);

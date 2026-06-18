@@ -6,6 +6,6 @@ package MatNoodlesSRL;
  */
 public enum MedioVenta {
     TELEFONO,
-    WEB,
+    SITIO_WEB,
     RED_SOCIAL
 }

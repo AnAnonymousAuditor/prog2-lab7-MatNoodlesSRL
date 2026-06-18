@@ -11,4 +11,9 @@ public class FideosAlHuevo extends ProductoPorPeso {
     public double getPrecio() {
         return PRECIO;
     }
+
+    @Override
+    public String toString() {
+        return "Fideos al huevo" + super.toString();
+    }
 }

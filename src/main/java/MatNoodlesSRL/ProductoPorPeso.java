@@ -33,4 +33,8 @@ public abstract class ProductoPorPeso extends Producto {
         }
     }
 
+    @Override
+    public String toString() {
+        return ", por kg";
+    }
 }

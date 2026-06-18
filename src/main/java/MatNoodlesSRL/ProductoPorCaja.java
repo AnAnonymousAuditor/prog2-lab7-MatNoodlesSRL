@@ -33,4 +33,8 @@ public abstract class ProductoPorCaja extends Producto {
         }
     }
 
+    @Override
+    public String toString() {
+        return ", en caja";
+    }
 }

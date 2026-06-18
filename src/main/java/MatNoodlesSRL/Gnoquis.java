@@ -11,4 +11,9 @@ public class Gnoquis extends ProductoPorPeso {
     public double getPrecio() {
         return PRECIO;
     }
+
+    @Override
+    public String toString() {
+        return "Ñoquis" + super.toString();
+    }
 }

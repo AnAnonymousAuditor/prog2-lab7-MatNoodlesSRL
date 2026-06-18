@@ -11,4 +11,9 @@ public class Ravioles extends ProductoPorCaja {
     public double getPrecio() {
         return PRECIO;
     }
+
+    @Override
+    public String toString() {
+        return "Ravioles" + super.toString();
+    }
 }
