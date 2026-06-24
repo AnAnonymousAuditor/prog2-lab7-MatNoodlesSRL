@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class Pedido {
 
+    private static int nextId = 1;
+    private final int ID;
     private MedioVenta medioVenta;
     private Cliente cliente;
     private List<DetallePedido> detalles;
@@ -24,6 +26,7 @@ public class Pedido {
     }
 
     public Pedido(MedioVenta medioVenta, Cliente cliente) {
+        this.ID = nextId++;
         this.medioVenta = medioVenta;
         this.cliente = cliente;
         this.detalles = new ArrayList<>();
@@ -75,6 +78,10 @@ public class Pedido {
 
     public void agregarDetalle(DetallePedido detalle) {
         this.detalles.add(detalle);
+    }
+
+    public int getID() {
+        return ID;
     }
 
     public MedioVenta getMedioVenta() {
