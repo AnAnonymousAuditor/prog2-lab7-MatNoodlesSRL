@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        /* Scanner sc = new Scanner(System.in);
 
         Cliente cliente = null;
         String nombre;
@@ -126,6 +126,25 @@ public class Main {
                     clienteIngresado = false;
                     detallesCargados = false;
                 }
+            } catch (IllegalArgumentException iae) {
+                System.out.println("Valor inválido: " + iae.getMessage());
+            } catch (InputMismatchException ime) {
+                System.out.println("Error de entrada: " + ime.getMessage());
+            } catch (PedidoInvalidoException pie) {
+                System.out.println("Pedido inválido: " + pie.getMessage());
+            } catch (ArithmeticException ae) {
+                System.out.println("Error aritmético: " + ae.getMessage());
+            } catch (Exception e) {
+                System.out.println("ERROR: " + e.getMessage());
+            }
+        } */
+
+        // TODO: Nuevo Main
+        FabricaPastas fabrica = new FabricaPastas();
+        boolean terminado = false;
+        while (!terminado) {
+            try {
+                terminado = fabrica.menu();
             } catch (IllegalArgumentException iae) {
                 System.out.println("Valor inválido: " + iae.getMessage());
             } catch (InputMismatchException ime) {
