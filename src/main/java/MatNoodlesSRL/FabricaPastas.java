@@ -49,14 +49,14 @@ public class FabricaPastas {
                 int numero;
                 System.out.print("Ingrese el número de pedido a buscar: ");
                 numero = sc.nextInt();
-                buscarPedido(numero);
+                imprimirPedido(buscarPedido(numero));
             }
             case 3 -> listarPedidos();
             case 4 -> {
                 int numero;
                 System.out.print("Ingrese el número de pedido a eliminar: ");
                 numero = sc.nextInt();
-                eliminarPedido(numero);
+                imprimirPedido(eliminarPedido(numero));
             }
             case 5 -> throw new UnsupportedOperationException("Operación aún no soportada.");
             case 6 -> throw new UnsupportedOperationException("Operación aún no soportada.");
@@ -106,12 +106,17 @@ public class FabricaPastas {
         }
     }
 
-    public Pedido buscarPedido(int numero){
+    public Pedido buscarPedido(int numero) {
+        if (pedidos.isEmpty()) {
+            throw new NoSuchElementException("No hay pedidos almacenados.");
+        }
+
         for (Pedido p : pedidos) {
             if (p.getID() == numero) {
                 return p;
             }
         }
+
         throw new NoSuchElementException("No existe un pedido con ese número.");
     }
 
@@ -121,14 +126,23 @@ public class FabricaPastas {
         }
     }
 
-    public void eliminarPedido(int numero) {
+    public Pedido eliminarPedido(int numero) {
+        if (pedidos.isEmpty()) {
+            throw new NoSuchElementException("No hay pedidos almacenados.");
+        }
+
         Iterator<Pedido> it = pedidos.iterator();
+        Pedido p;
+
         while (it.hasNext()) {
-            Pedido p = it.next();
+            p = it.next();
             if (p.getID() == numero) {
                 it.remove();
+                return p;
             }
         }
+
+        throw new NoSuchElementException("No existe un pedido con ese número.");
     }
 
     private Cliente ingresarCliente() {
