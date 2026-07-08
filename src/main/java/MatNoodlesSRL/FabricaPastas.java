@@ -45,19 +45,9 @@ public class FabricaPastas {
         op = sc.nextInt();
         switch (op) {
             case 1 -> agregarPedido();
-            case 2 -> {
-                int numero;
-                System.out.print("Ingrese el número de pedido a buscar: ");
-                numero = sc.nextInt();
-                imprimirPedido(buscarPedido(numero));
-            }
+            case 2 -> imprimirPedido(buscarPedido());
             case 3 -> listarPedidos();
-            case 4 -> {
-                int numero;
-                System.out.print("Ingrese el número de pedido a eliminar: ");
-                numero = sc.nextInt();
-                imprimirPedido(eliminarPedido(numero));
-            }
+            case 4 -> imprimirPedido(eliminarPedido());
             case 5 -> throw new UnsupportedOperationException("Operación aún no soportada.");
             case 6 -> throw new UnsupportedOperationException("Operación aún no soportada.");
             case 7 -> throw new UnsupportedOperationException("Operación aún no soportada.");
@@ -120,6 +110,14 @@ public class FabricaPastas {
         throw new NoSuchElementException("No existe un pedido con ese número.");
     }
 
+    public Pedido buscarPedido() {
+        Scanner sc = new Scanner(System.in);
+        int numero;
+        System.out.print("Ingrese el número de pedido a buscar: ");
+        numero = sc.nextInt();
+        return buscarPedido(numero);
+    }
+
     public void listarPedidos() {
         for (Pedido pedido : pedidos) {
             imprimirPedido(pedido);
@@ -143,6 +141,14 @@ public class FabricaPastas {
         }
 
         throw new NoSuchElementException("No existe un pedido con ese número.");
+    }
+
+    public Pedido eliminarPedido() {
+        Scanner sc = new Scanner(System.in);
+        int numero;
+        System.out.print("Ingrese el número de pedido a eliminar: ");
+        numero = sc.nextInt();
+        return eliminarPedido(numero);
     }
 
     private Cliente ingresarCliente() {
