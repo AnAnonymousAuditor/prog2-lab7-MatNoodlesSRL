@@ -1,10 +1,11 @@
 package MatNoodlesSRL;
+import java.io.Serializable;
 
 /**
  *
  * @author gabi
  */
-public class Cliente {
+public class Cliente implements Serializable{
     private String nombre;
     private String apellido;
     private String email;

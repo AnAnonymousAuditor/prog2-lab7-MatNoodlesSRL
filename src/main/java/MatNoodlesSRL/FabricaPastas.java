@@ -1,11 +1,17 @@
 package MatNoodlesSRL;
 
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
 
 /**
  *
@@ -49,8 +55,8 @@ public class FabricaPastas {
             case 3 -> listarPedidos();
             case 4 -> imprimirPedido(eliminarPedido());
             case 5 -> throw new UnsupportedOperationException("Operación aún no soportada.");
-            case 6 -> throw new UnsupportedOperationException("Operación aún no soportada.");
-            case 7 -> throw new UnsupportedOperationException("Operación aún no soportada.");
+            case 6 -> guardarPedidos();
+            case 7 -> recuperarPedidos();
             case 8 -> done = true;
             default -> throw new IllegalArgumentException("Error: el número ingresado debe estar entre 1 y 8. Se ingresó: " + op);
         }
@@ -246,4 +252,28 @@ public class FabricaPastas {
         System.out.println(ticket);
         System.out.println("------------------------------------------");
     }
+    
+    private void guardarPedidos() throws IOException{
+        
+        FileOutputStream fos = new FileOutputStream ("pedidos.dat");
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(pedidos);
+            System.out.println("Pedidos guardados exitosamente");
+            oos.close();
+        } catch (IOException e) {
+        System.out.println("Error al guardar los pedidos: " + e.getMessage());
+        }
+    }
+    
+    
+    private void recuperarPedidos() throws IOException{
+        
+        FileInputStream fis = new FileInputStream("pedidos.dat");
+        objectInputStream obi = new objectInputStream(fis);
+        Pedido pedidoEnFichero =
+        
+        
+    }
+    
 }
+
