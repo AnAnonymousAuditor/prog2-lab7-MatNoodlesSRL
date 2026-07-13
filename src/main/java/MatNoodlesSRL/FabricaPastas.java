@@ -227,7 +227,7 @@ public class FabricaPastas {
         StringBuilder ticket = new StringBuilder("""
                 ============== PEDIDO %06d ==============
                 Vendido por %s
-                """.formatted(p.getID(), p.getMedioVenta().name().replace("_", " ")));
+                """.formatted(p.getID(), p.getMedioVenta()));
         ticket.append("""
                 Datos del cliente:
                 %s
