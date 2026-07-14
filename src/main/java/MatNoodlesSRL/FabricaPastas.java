@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 /**
  *
@@ -253,27 +254,36 @@ public class FabricaPastas {
         System.out.println("------------------------------------------");
     }
     
-    private void guardarPedidos() throws IOException{
+    private void guardarPedidos(){
         
-        FileOutputStream fos = new FileOutputStream ("pedidos.dat");
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+        try (FileOutputStream fos = new FileOutputStream("pedidos.dat");
+         ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+     
             oos.writeObject(pedidos);
             System.out.println("Pedidos guardados exitosamente");
             oos.close();
         } catch (IOException e) {
-        System.out.println("Error al guardar los pedidos: " + e.getMessage());
+            System.out.println("Error al guardar los pedidos: " + e.getMessage());
         }
     }
+
     
-    
-    private void recuperarPedidos() throws IOException{
+    private void recuperarPedidos(){
         
-        FileInputStream fis = new FileInputStream("pedidos.dat");
-        objectInputStream obi = new objectInputStream(fis);
-        Pedido pedidoEnFichero =
-        
-        
+        try (FileInputStream fis = new FileInputStream("pedidos.dat");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            
+            this.pedidos = (List<Pedido>) ois.readObject();
+            System.out.println("¡Pedidos recuperados exitosamente!");
+            ois.close();
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("No se encontro el archivo 'pedidos.dat'.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al recuperar los pedidos: " + e.getMessage());
+        }
     }
-    
 }
+
+
+
 
