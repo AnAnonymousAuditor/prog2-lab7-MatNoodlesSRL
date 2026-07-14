@@ -36,7 +36,6 @@ public class FabricaPastas {
         this.pedidos = pedidos;
     }
 
-    // TODO: terminar menu()
     public boolean menu() {
         Scanner sc = new Scanner(System.in);
         int op;
