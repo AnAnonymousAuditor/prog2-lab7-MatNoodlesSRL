@@ -1,6 +1,9 @@
 package MatNoodlesSRL;
 
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -55,7 +58,7 @@ public class FabricaPastas {
             case 2 -> imprimirPedido(buscarPedido());
             case 3 -> listarPedidos();
             case 4 -> imprimirPedido(eliminarPedido());
-            case 5 -> throw new UnsupportedOperationException("Operación aún no soportada.");
+            case 5 -> exportarPedidosTxt();
             case 6 -> guardarPedidos();
             case 7 -> recuperarPedidos();
             case 8 -> done = true;
@@ -158,6 +161,36 @@ public class FabricaPastas {
         return eliminarPedido(numero);
     }
 
+    public void exportarPedidosTxt() {
+        String ruta = "src/main/resources/pedidos.txt";
+        ruta = ruta.replace('/', File.separatorChar);
+        File f = new File(ruta);
+
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
+
+        try (FileWriter fw = new FileWriter(f); BufferedWriter bw = new BufferedWriter(fw)) {
+            for (Pedido p : pedidos) {
+                bw.write("""
+                        Pedido: %12s%06d
+                        """.formatted("", p.getID()));
+                bw.write("""
+                        Cliente: %11s %s
+                        """.formatted(p.getCliente().getNombre(), p.getCliente().getApellido()));
+                bw.write("""
+                        Canal: %19s
+                        """.formatted(p.getMedioVenta()));
+                bw.write("""
+                        Importe: %,15.2f $
+                        """.formatted(p.calcularTotal()));
+                bw.newLine();
+            }
+        } catch (IOException ioe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo escribir correctamente", ioe);
+        }
+    }
+
     private Cliente ingresarCliente() {
         Scanner sc = new Scanner(System.in);
         String nombre;
@@ -253,12 +286,12 @@ public class FabricaPastas {
         System.out.println(ticket);
         System.out.println("------------------------------------------");
     }
-    
+
     private void guardarPedidos(){
-        
+
         try (FileOutputStream fos = new FileOutputStream("pedidos.dat");
          ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-     
+
             oos.writeObject(pedidos);
             System.out.println("Pedidos guardados exitosamente");
             oos.close();
@@ -267,12 +300,12 @@ public class FabricaPastas {
         }
     }
 
-    
+
     private void recuperarPedidos(){
-        
+
         try (FileInputStream fis = new FileInputStream("pedidos.dat");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
-            
+
             this.pedidos = (List<Pedido>) ois.readObject();
             System.out.println("¡Pedidos recuperados exitosamente!");
             ois.close();
