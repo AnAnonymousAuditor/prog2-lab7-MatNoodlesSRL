@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.Serializable;
 
-public class Pedido implements Serializable{
+public class Pedido implements Serializable {
 
     private static int nextId = 1;
     private final int ID;

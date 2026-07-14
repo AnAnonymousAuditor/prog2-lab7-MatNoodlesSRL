@@ -2,7 +2,13 @@ package MatNoodlesSRL;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -10,12 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 
 /**
  *
@@ -256,11 +256,9 @@ public class FabricaPastas {
         };
     }
 
-    private void guardarPedidos(){
-
+    private void guardarPedidos() {
         try (FileOutputStream fos = new FileOutputStream("pedidos.dat");
-         ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(pedidos);
             System.out.println("Pedidos guardados exitosamente");
             oos.close();
@@ -269,23 +267,16 @@ public class FabricaPastas {
         }
     }
 
-
-    private void recuperarPedidos(){
-
+    private void recuperarPedidos() {
         try (FileInputStream fis = new FileInputStream("pedidos.dat");
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-
+                ObjectInputStream ois = new ObjectInputStream(fis)) {
             this.pedidos = (List<Pedido>) ois.readObject();
             System.out.println("¡Pedidos recuperados exitosamente!");
             ois.close();
-        } catch (java.io.FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("No se encontro el archivo 'pedidos.dat'.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al recuperar los pedidos: " + e.getMessage());
         }
     }
 }
-
-
-
-

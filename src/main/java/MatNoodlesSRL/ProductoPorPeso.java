@@ -27,8 +27,7 @@ public abstract class ProductoPorPeso extends Producto {
                 throw new PedidoInvalidoException("El peso no puede ser mayor a 10kg");
             }
             setCantidad(peso);
-        }
-        catch (InputMismatchException ime) {
+        } catch (InputMismatchException ime) {
             throw new PedidoInvalidoException("El texto ingresado no es un número.");
         }
     }

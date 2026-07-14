@@ -27,8 +27,7 @@ public abstract class ProductoPorCaja extends Producto {
                 throw new PedidoInvalidoException("La cantidad de cajas debe ser un entero");
             }
             setCantidad(cajas);
-        }
-        catch (InputMismatchException ime) {
+        } catch (InputMismatchException ime) {
             throw new PedidoInvalidoException("El texto ingresado no es un número.");
         }
     }
