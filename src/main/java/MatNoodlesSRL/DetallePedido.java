@@ -1,10 +1,12 @@
 package MatNoodlesSRL;
 
+import java.io.Serializable;
+
 /**
  *
  * @author manuel
  */
-public class DetallePedido {
+public class DetallePedido implements Serializable {
     private double subtotal;
     private Producto producto;
 

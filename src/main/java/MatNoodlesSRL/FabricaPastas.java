@@ -270,26 +270,40 @@ public class FabricaPastas {
     }
 
     private void guardarPedidos() {
-        try (FileOutputStream fos = new FileOutputStream("pedidos.dat");
+        String ruta = "src/main/resources/pedidos.dat";
+        ruta = ruta.replace('/', File.separatorChar);
+        File f = new File(ruta);
+
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(f);
                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(pedidos);
             System.out.println("Pedidos guardados exitosamente");
-            oos.close();
-        } catch (IOException e) {
-            System.out.println("Error al guardar los pedidos: " + e.getMessage());
+        } catch (FileNotFoundException fnfe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se encontró", fnfe);
+        } catch (IOException ioe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo escribir correctamente", ioe);
         }
     }
 
     private void recuperarPedidos() {
-        try (FileInputStream fis = new FileInputStream("pedidos.dat");
+        String ruta = "src/main/resources/pedidos.dat";
+        ruta = ruta.replace('/', File.separatorChar);
+        File f = new File(ruta);
+
+        try (FileInputStream fis = new FileInputStream(f);
                 ObjectInputStream ois = new ObjectInputStream(fis)) {
             this.pedidos = (List<Pedido>) ois.readObject();
-            System.out.println("¡Pedidos recuperados exitosamente!");
-            ois.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("No se encontro el archivo 'pedidos.dat'.");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error al recuperar los pedidos: " + e.getMessage());
+            System.out.println("Pedidos recuperados exitosamente");
+        } catch (FileNotFoundException fnfe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se encontró", fnfe);
+        } catch (IOException ioe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo leer correctamente", ioe);
+        } catch (ClassNotFoundException cnfe) {
+            throw new RuntimeException("Error al reconstruir los objetos", cnfe);
         }
     }
 }

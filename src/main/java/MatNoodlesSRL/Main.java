@@ -17,8 +17,7 @@ public class Main {
             } catch (ArithmeticException ae) {
                 System.out.println("Error aritmético: " + ae.getMessage());
             } catch (UncheckedIOException uioe) {
-                System.out.println("Error de entrada/salida: " + uioe.getMessage());
-
+                System.out.println("Error de lectura/escritura: " + uioe.getMessage());
                 Throwable cause = uioe.getCause();
                 while (cause != null) {
                     System.out.println("Causado por: " + cause.getMessage());
@@ -26,6 +25,11 @@ public class Main {
                 }
             } catch (Exception e) {
                 System.out.println("ERROR: " + e.getMessage());
+                Throwable cause = e.getCause();
+                while (cause != null) {
+                    System.out.println("Causado por: " + cause.getMessage());
+                    cause = cause.getCause();
+                }
             }
         }
     }

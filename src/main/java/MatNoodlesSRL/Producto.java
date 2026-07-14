@@ -1,10 +1,12 @@
 package MatNoodlesSRL;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabi
  */
-public abstract class Producto {
+public abstract class Producto implements Serializable {
     protected double cantidad;
 
     public Producto() {
