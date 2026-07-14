@@ -1,3 +1,5 @@
+src/main/resources/*
+
 # Created by https://www.toptal.com/developers/gitignore/api/maven,netbeans,eclipse,intellij+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven,netbeans,eclipse,intellij+all
 
