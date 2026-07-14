@@ -70,7 +70,7 @@ public class FabricaPastas {
         return done;
     }
 
-    public void agregarPedido() {
+    private void agregarPedido() {
         Scanner sc = new Scanner(System.in);
         Cliente cliente = null;
         Pedido pedido = new Pedido();
@@ -109,7 +109,7 @@ public class FabricaPastas {
         }
     }
 
-    public Pedido buscarPedido(int numero) {
+    private Pedido buscarPedido(int numero) {
         if (pedidos.isEmpty()) {
             throw new NoSuchElementException("No hay pedidos almacenados.");
         }
@@ -123,7 +123,7 @@ public class FabricaPastas {
         throw new NoSuchElementException("No existe un pedido con ese número.");
     }
 
-    public Pedido buscarPedido() {
+    private Pedido buscarPedido() {
         Scanner sc = new Scanner(System.in);
         int numero;
         System.out.print("Ingrese el número de pedido a buscar: ");
@@ -136,13 +136,13 @@ public class FabricaPastas {
         return buscarPedido(numero);
     }
 
-    public void listarPedidos() {
+    private void listarPedidos() {
         for (Pedido pedido : pedidos) {
             System.out.println(pedido);
         }
     }
 
-    public Pedido eliminarPedido(int numero) {
+    private Pedido eliminarPedido(int numero) {
         if (pedidos.isEmpty()) {
             throw new NoSuchElementException("No hay pedidos almacenados.");
         }
@@ -161,7 +161,7 @@ public class FabricaPastas {
         throw new NoSuchElementException("No existe un pedido con ese número.");
     }
 
-    public Pedido eliminarPedido() {
+    private Pedido eliminarPedido() {
         Scanner sc = new Scanner(System.in);
         int numero;
         System.out.print("Ingrese el número de pedido a eliminar: ");
@@ -174,7 +174,7 @@ public class FabricaPastas {
         return eliminarPedido(numero);
     }
 
-    public void exportarPedidosTxt() {
+    private void exportarPedidosTxt() {
         String ruta = "src/main/resources/pedidos.txt";
         ruta = ruta.replace('/', File.separatorChar);
         File f = new File(ruta);
@@ -201,6 +201,44 @@ public class FabricaPastas {
             }
         } catch (IOException ioe) {
             throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo escribir correctamente", ioe);
+        }
+    }
+
+    private void guardarPedidos() {
+        String ruta = "src/main/resources/pedidos.dat";
+        ruta = ruta.replace('/', File.separatorChar);
+        File f = new File(ruta);
+
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(f);
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(pedidos);
+            System.out.println("Pedidos guardados exitosamente");
+        } catch (FileNotFoundException fnfe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se encontró", fnfe);
+        } catch (IOException ioe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo escribir correctamente", ioe);
+        }
+    }
+
+    private void recuperarPedidos() {
+        String ruta = "src/main/resources/pedidos.dat";
+        ruta = ruta.replace('/', File.separatorChar);
+        File f = new File(ruta);
+
+        try (FileInputStream fis = new FileInputStream(f);
+                ObjectInputStream ois = new ObjectInputStream(fis)) {
+            this.pedidos = (List<Pedido>) ois.readObject();
+            System.out.println("Pedidos recuperados exitosamente");
+        } catch (FileNotFoundException fnfe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se encontró", fnfe);
+        } catch (IOException ioe) {
+            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo leer correctamente", ioe);
+        } catch (ClassNotFoundException cnfe) {
+            throw new RuntimeException("Error al reconstruir los objetos", cnfe);
         }
     }
 
@@ -267,43 +305,5 @@ public class FabricaPastas {
             default ->
                 throw new IllegalArgumentException("El número ingresado debe ser 1, 2, o 3. Se ingresó: " + medio);
         };
-    }
-
-    private void guardarPedidos() {
-        String ruta = "src/main/resources/pedidos.dat";
-        ruta = ruta.replace('/', File.separatorChar);
-        File f = new File(ruta);
-
-        if (!f.getParentFile().exists()) {
-            f.getParentFile().mkdirs();
-        }
-
-        try (FileOutputStream fos = new FileOutputStream(f);
-                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(pedidos);
-            System.out.println("Pedidos guardados exitosamente");
-        } catch (FileNotFoundException fnfe) {
-            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se encontró", fnfe);
-        } catch (IOException ioe) {
-            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo escribir correctamente", ioe);
-        }
-    }
-
-    private void recuperarPedidos() {
-        String ruta = "src/main/resources/pedidos.dat";
-        ruta = ruta.replace('/', File.separatorChar);
-        File f = new File(ruta);
-
-        try (FileInputStream fis = new FileInputStream(f);
-                ObjectInputStream ois = new ObjectInputStream(fis)) {
-            this.pedidos = (List<Pedido>) ois.readObject();
-            System.out.println("Pedidos recuperados exitosamente");
-        } catch (FileNotFoundException fnfe) {
-            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se encontró", fnfe);
-        } catch (IOException ioe) {
-            throw new UncheckedIOException("El archivo [" + f.getPath() + "] no se pudo leer correctamente", ioe);
-        } catch (ClassNotFoundException cnfe) {
-            throw new RuntimeException("Error al reconstruir los objetos", cnfe);
-        }
     }
 }

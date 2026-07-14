@@ -5,7 +5,7 @@ package MatNoodlesSRL;
  * @author gabi
  */
 public class Agnolotis extends ProductoPorCaja {
-    public static final double PRECIO = 5000;
+    public static final double PRECIO = 4500;
 
     @Override
     public double getPrecio() {
@@ -16,5 +16,5 @@ public class Agnolotis extends ProductoPorCaja {
     public String toString() {
         return "Agnolotis" + super.toString();
     }
-    
+
 }

@@ -5,7 +5,7 @@ package MatNoodlesSRL;
  * @author gabi
  */
 public class FideosAlHuevo extends ProductoPorPeso {
-    public static final double PRECIO = 5000;
+    public static final double PRECIO = 2500;
 
     @Override
     public double getPrecio() {
