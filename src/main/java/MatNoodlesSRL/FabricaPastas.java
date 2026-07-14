@@ -55,9 +55,9 @@ public class FabricaPastas {
         op = sc.nextInt();
         switch (op) {
             case 1 -> agregarPedido();
-            case 2 -> imprimirPedido(buscarPedido());
+            case 2 -> System.out.println(buscarPedido());
             case 3 -> listarPedidos();
-            case 4 -> imprimirPedido(eliminarPedido());
+            case 4 -> System.out.println(eliminarPedido());
             case 5 -> exportarPedidosTxt();
             case 6 -> guardarPedidos();
             case 7 -> recuperarPedidos();
@@ -94,7 +94,7 @@ public class FabricaPastas {
                 }
 
                 getPedidos().add(pedido);
-                imprimirPedido(pedido);
+                System.out.println(pedido);
                 pedidoAgregado = true;
             } catch (IllegalArgumentException iae) {
                 System.out.println("Valor inválido: " + iae.getMessage());
@@ -130,7 +130,7 @@ public class FabricaPastas {
 
     public void listarPedidos() {
         for (Pedido pedido : pedidos) {
-            imprimirPedido(pedido);
+            System.out.println(pedido);
         }
     }
 
@@ -254,37 +254,6 @@ public class FabricaPastas {
             default ->
                 throw new IllegalArgumentException("El número ingresado debe ser 1, 2, o 3. Se ingresó: " + medio);
         };
-    }
-
-    private void imprimirPedido(Pedido p) {
-        StringBuilder ticket = new StringBuilder("""
-                ============== PEDIDO %06d ==============
-                Vendido por %s
-                """.formatted(p.getID(), p.getMedioVenta()));
-        ticket.append("""
-                Datos del cliente:
-                %s
-                """.formatted(p.getCliente()));
-        ticket.append("""
-
-                Producto                          Subtotal
-                """);
-        for (DetallePedido dp : p.getDetalles()) {
-            Producto pr = dp.getProducto();
-            ticket.append("""
-                    %-25s       %,8.2f $
-                        %.3f x %,.2f $
-                    """.formatted(pr, dp.calcularSubtotal(), pr.getCantidad(), pr.getPrecio()));
-
-        }
-        ticket.append("""
-                ------------------------------------------
-                """);
-        ticket.append("""
-                TOTAL           %,24.2f $
-                """.formatted(p.calcularTotal()));
-        System.out.println(ticket);
-        System.out.println("------------------------------------------");
     }
 
     private void guardarPedidos(){

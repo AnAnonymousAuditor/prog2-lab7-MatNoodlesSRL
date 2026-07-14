@@ -111,9 +111,34 @@ public class Pedido implements Serializable{
 
     @Override
     public String toString() {
-        return "Pedido{" +
-                "medioVenta=" + medioVenta +
-                ", detalles=" + detalles +
-                '}';
+        StringBuilder ticket = new StringBuilder("""
+                ============= PEDIDO #%06d =============
+                Vendido por: %s
+                """.formatted(getID(), getMedioVenta()));
+        ticket.append("""
+                Datos del cliente:
+                %s
+                """.formatted(getCliente()));
+        ticket.append("""
+
+                Producto                          Subtotal
+                """);
+        for (DetallePedido dp : getDetalles()) {
+            Producto pr = dp.getProducto();
+            ticket.append("""
+                    %-25s      %,8.2f $
+                        %.3f x %,.2f $
+                    """.formatted(pr, dp.calcularSubtotal(), pr.getCantidad(), pr.getPrecio()));
+        }
+        ticket.append("""
+                ------------------------------------------
+                """);
+        ticket.append("""
+                TOTAL           %,24.2f $
+                """.formatted(calcularTotal()));
+        ticket.append("""
+                ------------------------------------------
+                """);
+        return ticket.toString();
     }
 }
