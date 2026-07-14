@@ -57,7 +57,7 @@ public class Pedido implements Serializable {
                              2) Fideos al huevo
                              3) Ñoquis
                              4) Ravioles
-                             """);
+                             Opción:$""".replace('$', ' '));
             tipo = sc.nextInt();
             sc.nextLine();
 

@@ -51,7 +51,11 @@ public class FabricaPastas {
                 7. Recuperar pedidos (Deserialización)
                 8. Salir
                 Opción:$""".replace('$', ' '));
-        op = sc.nextInt();
+        try {
+            op = sc.nextInt();
+        } catch (InputMismatchException ime) {
+            throw new InputMismatchException("El texto ingresado no es un número.");
+        }
         switch (op) {
             case 1 -> agregarPedido();
             case 2 -> System.out.println(buscarPedido());
@@ -123,7 +127,12 @@ public class FabricaPastas {
         Scanner sc = new Scanner(System.in);
         int numero;
         System.out.print("Ingrese el número de pedido a buscar: ");
-        numero = sc.nextInt();
+        try {
+            numero = sc.nextInt();
+            sc.nextLine();
+        } catch (InputMismatchException ime) {
+            throw new InputMismatchException("El texto ingresado no es un número.");
+        }
         return buscarPedido(numero);
     }
 
@@ -156,7 +165,12 @@ public class FabricaPastas {
         Scanner sc = new Scanner(System.in);
         int numero;
         System.out.print("Ingrese el número de pedido a eliminar: ");
-        numero = sc.nextInt();
+        try {
+            numero = sc.nextInt();
+            sc.nextLine();
+        } catch (InputMismatchException ime) {
+            throw new InputMismatchException("El texto ingresado no es un número.");
+        }
         return eliminarPedido(numero);
     }
 
@@ -235,7 +249,7 @@ public class FabricaPastas {
                 1) Teléfono
                 2) Sitio web
                 3) Red social
-                """);
+                Opción:$""".replace('$', ' '));
         try {
             medio = sc.nextInt();
             sc.nextLine();

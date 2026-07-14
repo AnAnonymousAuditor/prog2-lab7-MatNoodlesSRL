@@ -6,7 +6,7 @@ import java.io.Serializable;
  *
  * @author gabi
  */
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
     private String nombre;
     private String apellido;
     private String email;
@@ -68,9 +68,9 @@ public class Cliente implements Serializable{
     @Override
     public String toString() {
         return """
-            %s %s
-            E-mail: %s
-            Teléfono: %s
-            Dirección: %s""".formatted(nombre, apellido, email, telefono, direccion);
+                %s %s
+                E-mail: %s
+                Teléfono: %s
+                Dirección: %s""".formatted(nombre, apellido, email, telefono, direccion);
     }
 }
